@@ -20,6 +20,6 @@ const TextSplitter: React.FC<Props> = ({token, logout}) => {
 export default TextSplitter
 
 
-const Charly = () => {
+// const Charly = () => {
   
-}
+// }

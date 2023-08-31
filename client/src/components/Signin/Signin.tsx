@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import TextSplitter from '../TextSplitter/textSplitter';
+import TextSplitter from '../TextSplitter/TextSplitter';
 
 
 const Signin = () => {
