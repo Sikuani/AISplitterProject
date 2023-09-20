@@ -1,12 +1,30 @@
+import { Routes, Route } from "react-router-dom"
+
 import Signin from "../Signin/Signin"
+import ProtectedRoute from "../Routing/ProtectedRoute";
+import TextSplitter from "../TextSplitter/TextSplitter"
+import NavBar from "../NavBar/NavBar";
+import YTranscripts from '../YTranscript/YTranscripts';
 
 function App() {
   
   return (
-    <>
-      <h1 className='text-3xl font-bold underline text-center'>AI Splitter</h1>
-      <Signin/>
-    </>
+    <div className="w-screen h-screen">
+      
+      <NavBar/>
+      <Routes>
+        
+        {/*Public routes*/}
+        <Route path="/sign-in" element={<Signin/>}/>
+
+        {/*Protected routes*/}
+        <Route path="/" element={<ProtectedRoute><TextSplitter/></ProtectedRoute>}/>
+        <Route path="/youtube-transcripts" element={<ProtectedRoute><YTranscripts/></ProtectedRoute>}/>
+        <Route path="/collection" element={<ProtectedRoute><h1>/collection</h1></ProtectedRoute>}/> //! gereral collection
+        <Route path="/collection/:id" element={<ProtectedRoute><h1>/collection #id</h1></ProtectedRoute>}/> //!specific collection
+        
+      </Routes>
+    </div>
   )
 }
 

@@ -1,0 +1,3 @@
+export const instructions = (chunks: string[]) => {
+  return `The total length of the content that I want to send you is too large to send in only one piece. For sending you that content, I will follow this rule: [START PART 1/${chunks.length}] this is the content of the part 1 out of ${chunks.length} in total [END PART 1/${chunks.length}] Then you just answer: "Received part 1/${chunks.length}"`
+}
