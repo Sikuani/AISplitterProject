@@ -1,24 +1,20 @@
 import { createCollection, addTextToCollectionAPI } from "../../utils/api";
 import { useState } from "react";
-import axios from "axios";
+
 import Instructions from "../Instructions/Instructions";
 import Buttons from "../Buttons/Buttons";
+import { getTranscript } from "../../utils/api";
+import { createChunk } from "../../utils/index";
 
-const MAX_CHUNK_SIZE = 3970;
-
-// The user provides a link to a YouTube video.
-// The UI creates a collection.
-
-// Your UI will make API requests to save the large block to text to history.
-// Your UI will break the text pieces that are less than 4,000 characters and share this with the user.
+type TranscriptType = string | undefined;
 
 function YTranscripts() {
   const [url, setUrl] = useState("");
   const [chunks, setChunks] = useState<string[]>([]);
-  const [transcriptText, setTranscriptText] = useState("");
+  const [transcriptText, setTranscriptText] = useState<string | undefined>("");
 
   const generateTranscript = async () => {
-    //1. The UI create a collection.
+    
     if (!url) {
       alert("Please enter a YouTube URL");
       return;
@@ -26,53 +22,13 @@ function YTranscripts() {
 
     const colletionID = await createCollection(url);
 
-    // Your UI makes a request to /api/youtube-transcript?url={youtubeUrl} to generate a YouTube transcript for the video.
-    try {
-      const response = await axios.get(`/api/youtube-transcript?url=${url}`);
-      const { result } = response.data;
-      const transcript: string[] = result.map((arrayText) => {
-        return arrayText.text;
-      });
-
-      //Transcript array convert to text
-      setTranscriptText(transcript.join("\n"));
-
-      // store the text to collection
-      const transcription = transcript.join("\n");
-      setTranscriptText(transcription);
-
-      await addTextToCollectionAPI(transcription, colletionID);
-      createChunks(transcription);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const createChunks = (inputText: string) => {
-    /**
-     * TODO:
-     * 1. Create a newChuncks array to store the chunks
-     * 2. Iterate through the inputText and create a new chunk and push it to the newChuncks array.
-     * 3. Set the newChuncks to the chunk state
-     *
-     */
-
-    const newChunks = [];
-
-    const size = Math.ceil(inputText.length / MAX_CHUNK_SIZE);
-    let index = 0;
-
-    for (let i = 0; i < inputText.length; i += MAX_CHUNK_SIZE) {
-      const chunk =
-        `[STAR PART ${index + 1}/${size}]` +
-        inputText.substring(i, i + MAX_CHUNK_SIZE) +
-        `[END PART ${index + 1}/${size}]`;
-      newChunks.push(chunk);
-      index++;
-    }
-    setChunks(newChunks);
-  };
-
+    const transcript: TranscriptType = await getTranscript(url);
+    setTranscriptText(transcript);
+    await addTextToCollectionAPI(transcript, colletionID);
+    setChunks(createChunk(transcript));
+    console.log(chunks)
+  }
+  
   const clearChat = () => {
     setTranscriptText("");
     setChunks([]);

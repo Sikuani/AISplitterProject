@@ -1,5 +1,11 @@
 import axios from "axios";
 
+type Item = {
+  text: string;
+  duration: number;
+  offset: number;
+}
+
 //2. When the user submits the form, extract the text from the form and create a title for the text
 export const createCollection = async (inputText: string) => {
   const collectionName = inputText.substring(0, 25);
@@ -13,15 +19,14 @@ export const createCollection = async (inputText: string) => {
       data: {
         name: collectionName,
       },
-    });
-    
+    });    
     return response.data.id;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const addTextToCollectionAPI = async (text: string, collectionID: string) => {
+export const addTextToCollectionAPI = async (text: string | undefined, collectionID: string) => {
   try {
     const response = await axios(`/api/collection/${collectionID}/text`, {
       method: "POST",
@@ -33,7 +38,7 @@ export const addTextToCollectionAPI = async (text: string, collectionID: string)
         text,
       },
     });
-    console.log(response.data);
+    return response.data.text
   } catch (error) {
     console.error(error);
   }
@@ -51,6 +56,7 @@ export const renameCollection = async (collectionID: string, newName: string) =>
         name: newName,
       },
     });
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -58,7 +64,7 @@ export const renameCollection = async (collectionID: string, newName: string) =>
 
 export const deleteCollection = async (collectionID: string) => { 
   try {
-    const response = await axios(`/api/collection/${collectionID}`, {
+    await axios(`/api/collection/${collectionID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -70,7 +76,6 @@ export const deleteCollection = async (collectionID: string) => {
   }
 }
 
-
 export const viewCollection = async (collectionID: string) => { 
   try {
     const response = await axios(`/api/collection/${collectionID}`, {
@@ -80,11 +85,11 @@ export const viewCollection = async (collectionID: string) => {
         "Content-Type": "application/json",
       },
     });
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 }
-
 
 export const viewAllCollection = async () => { 
   try {
@@ -95,7 +100,24 @@ export const viewAllCollection = async () => {
         "Content-Type": "application/json",
       },
     });
+    return response.data;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export const getTranscript = async (url: string) => {
+  try {
+    const response = await axios.get(`/api/youtube-transcript?url=${url}`);
+    const { result } = response.data;
+    const transcript: string[] = result.map((arrayText: Item) => {
+      return arrayText.text;
+    });
+
+    const transcriptText = transcript.join(" ");
+    return transcriptText;
+  
+  } catch (error) {
+    console.log(error);
   }
 }

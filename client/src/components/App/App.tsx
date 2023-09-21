@@ -5,6 +5,7 @@ import ProtectedRoute from "../Routing/ProtectedRoute";
 import TextSplitter from "../TextSplitter/TextSplitter"
 import NavBar from "../NavBar/NavBar";
 import YTranscripts from '../YTranscript/YTranscripts';
+import Collections from "../Collections/Collections";
 
 function App() {
   
@@ -20,7 +21,7 @@ function App() {
         {/*Protected routes*/}
         <Route path="/" element={<ProtectedRoute><TextSplitter/></ProtectedRoute>}/>
         <Route path="/youtube-transcripts" element={<ProtectedRoute><YTranscripts/></ProtectedRoute>}/>
-        <Route path="/collection" element={<ProtectedRoute><h1>/collection</h1></ProtectedRoute>}/> //! gereral collection
+        <Route path="/collection" element={<ProtectedRoute><Collections/></ProtectedRoute>}/> //! gereral collection
         <Route path="/collection/:id" element={<ProtectedRoute><h1>/collection #id</h1></ProtectedRoute>}/> //!specific collection
         
       </Routes>
