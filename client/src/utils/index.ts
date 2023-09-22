@@ -2,7 +2,7 @@ import { instructions } from './instructions';
 
 const MAX_CHUNK_SIZE = 3970;
 
-export const createChunk = (inputText: string | undefined) => {
+export const createChunk = (inputText: string) => {
   
   const newChunks: string[] = [];
 

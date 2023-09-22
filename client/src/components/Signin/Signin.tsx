@@ -5,8 +5,7 @@ import axios from "axios";
 import { AuthTokenContext } from "../../context/AuthTokenContext";
 
 const Signin = () => {
-  // Components  .. returns <Elements>
-
+  
   const { login } = useContext(AuthTokenContext); // destructuring
   const navigate = useNavigate();
 

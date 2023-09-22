@@ -23,8 +23,7 @@ function Collections() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response.data);
-
+      
       const collection = response.data;
       setCollections(collection);
     } catch (error) {

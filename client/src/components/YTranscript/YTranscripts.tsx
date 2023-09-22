@@ -6,15 +6,12 @@ import Buttons from "../Buttons/Buttons";
 import { getTranscript } from "../../utils/api";
 import { createChunk } from "../../utils/index";
 
-type TranscriptType = string | undefined;
-
 function YTranscripts() {
   const [url, setUrl] = useState("");
   const [chunks, setChunks] = useState<string[]>([]);
-  const [transcriptText, setTranscriptText] = useState<string | undefined>("");
+  const [transcriptText, setTranscriptText] = useState<string>("");
 
   const generateTranscript = async () => {
-    
     if (!url) {
       alert("Please enter a YouTube URL");
       return;
@@ -22,13 +19,14 @@ function YTranscripts() {
 
     const colletionID = await createCollection(url);
 
-    const transcript: TranscriptType = await getTranscript(url);
+    const transcript = await getTranscript(url);
+    if (!transcript) return;
+
     setTranscriptText(transcript);
     await addTextToCollectionAPI(transcript, colletionID);
     setChunks(createChunk(transcript));
-    console.log(chunks)
-  }
-  
+  };
+
   const clearChat = () => {
     setTranscriptText("");
     setChunks([]);

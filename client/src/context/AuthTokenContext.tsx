@@ -1,13 +1,3 @@
-/**
- * Crear el context
- * Creamos la funcion provider (values)porn
- * 1. crear el estado del token
- * 2. obtener el token
- * 3. crear una funcion que indique si existe un token (boolean)
- * 4. crear una funcion login (setState(token))
- * 5. crear una funcion logout (setState("")) * 
- */
-
 import { ReactNode, createContext, useState } from "react";
 
 type AuthTokenContextType = {
@@ -37,7 +27,7 @@ export function AuthTokenProvider({children}: AuthTokenProviderProps)  {
 
   const hasToken = () => token ? true : false;
 
-  //const hasToken = () => !!token // Otra sintasis para significar lo mismo 
+  //const hasToken = () => !!token // Another way to check if the token exists 
 
   const login = (token: string) => {
     localStorage.setItem("token", token)
