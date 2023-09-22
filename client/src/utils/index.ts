@@ -17,7 +17,6 @@ export const createChunk = (inputText: string | undefined) => {
     newChunks.push(chunk);
     index++;
   }
-
   return newChunks;
 };
 

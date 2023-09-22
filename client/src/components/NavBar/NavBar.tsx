@@ -20,7 +20,7 @@ const NavBar = () => {
             <ul className="flex px-7 gap-6 items-center text-white">              
               <li><Link className="text-white hover:text-gray-600" to={"/youtube-transcripts"}>YoutubeTranscript</Link></li>
               <li><Link className="text-white hover:text-gray-600" to={"/collection"}>Collections</Link></li>
-              <li><Link className="text-white hover:text-gray-600" to={"/collection/:id"}>Collection</Link></li>
+              
               
             </ul>
           </div>

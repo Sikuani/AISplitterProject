@@ -6,7 +6,6 @@ type Item = {
   offset: number;
 }
 
-//2. When the user submits the form, extract the text from the form and create a title for the text
 export const createCollection = async (inputText: string) => {
   const collectionName = inputText.substring(0, 25);
   try {
@@ -44,9 +43,9 @@ export const addTextToCollectionAPI = async (text: string | undefined, collectio
   }
 }
 
-export const renameCollection = async (collectionID: string, newName: string) => {
+export const renameCollection = async (collectionID: number, newName: string) => {
   try {
-    const response = await axios(`/api/collection/${collectionID}`, {
+    const response = await axios(`/api/collection/${collectionID.toString()}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -62,9 +61,9 @@ export const renameCollection = async (collectionID: string, newName: string) =>
   }
 }
 
-export const deleteCollection = async (collectionID: string) => { 
+export const deleteCollection = async (collectionID: number) => { 
   try {
-    await axios(`/api/collection/${collectionID}`, {
+    await axios(`/api/collection/${collectionID.toString()}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
