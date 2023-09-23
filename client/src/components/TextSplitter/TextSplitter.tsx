@@ -25,6 +25,7 @@ const TextSplitter = () => {
     }
 
     const collectionID = await createCollection(inputText);
+    console.log(collectionID);
 
     try {
       await axios(`/api/collection/${collectionID}/text`, {
@@ -90,7 +91,7 @@ const TextSplitter = () => {
             id="text"
             value={inputText}
             onChange={handleInputChange}
-            className="w-full h-32 p-2 m-4 resize-none border-2 border-gray-300 rounded-md mx-auto"
+            className="w-full h-32 p-2 m-4 resize-none border-2 border-gray-300 rounded-md mx-auto bg-gray-500"
           />
         </fieldset>
 
@@ -103,8 +104,8 @@ const TextSplitter = () => {
         {chunks.length > 0 && (
           <>
             <div className="instructions mt-4 flex flex-col">
-              <fieldset className="bg-slate-300 p-4">
-                <legend className="p-1 bg-slate-400 rounded-sm">
+              <fieldset className="bg-slate-500 p-4">
+                <legend className="p-1 bg-slate-600 rounded-sm">
                   Instructions
                 </legend>
                 <p>{instructions(chunks)}</p>

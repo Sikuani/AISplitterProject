@@ -4,8 +4,8 @@ import { copyInstructions } from '../../utils/index';
 function Instructions({ chunks }: { chunks: string[] }) {
   return (
     <div className="instructions mt-4 flex flex-col p-2 m-4">
-      <fieldset className="bg-slate-300 p-4">
-        <legend className="p-1 bg-slate-400 rounded-sm">
+      <fieldset className="bg-slate-500 p-4">
+        <legend className="p-1 bg-slate-600 rounded-sm">
           Instructions
         </legend>
         <p className="">{instructions(chunks)}</p>

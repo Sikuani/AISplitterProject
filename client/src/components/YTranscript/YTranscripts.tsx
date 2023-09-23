@@ -48,7 +48,7 @@ function YTranscripts() {
           <input
             type="text"
             value={url}
-            className="w-full bg-gray-50"
+            className="w-full bg-gray-500"
             onChange={(e) => setUrl(e.target.value)}
           />
         </fieldset>
