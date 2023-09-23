@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthTokenContext } from "../../context/AuthTokenContext";
 import { instructions } from "../../utils/instructions";
 import { createCollection } from "../../utils/api";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const MAX_CHUNK_SIZE = 3970;
 
@@ -10,6 +11,8 @@ const TextSplitter = () => {
   const [inputText, setInputText] = useState("");
   const { getToken } = useContext(AuthTokenContext);
   const [chunks, setChunks] = useState<string[]>([]);
+
+  const { theme } = useContext(ThemeContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
@@ -72,10 +75,10 @@ const TextSplitter = () => {
   };
 
   return (
-    <>
+    <div className={`${theme === 'light' ? 'bg-blue-950 text-white' : 'bg-blue-200 text-black'}`}>
       <div className="p-6">
         <fieldset>
-          <legend className="text-sm text-black flex justify-between w-full">
+          <legend className="text-sm flex justify-between w-full p-4">
             Paste Text Here
             <span className="text-right">
               Character Count: {inputText.length}
@@ -87,7 +90,7 @@ const TextSplitter = () => {
             id="text"
             value={inputText}
             onChange={handleInputChange}
-            className="w-[92%] h-32 p-2 m-4 resize-none border-2 border-gray-300 rounded-md"
+            className="w-full h-32 p-2 m-4 resize-none border-2 border-gray-300 rounded-md mx-auto"
           />
         </fieldset>
 
@@ -101,10 +104,10 @@ const TextSplitter = () => {
           <>
             <div className="instructions mt-4 flex flex-col">
               <fieldset className="bg-slate-300 p-4">
-                <legend className="text-black p-1 bg-slate-400 rounded-sm">
+                <legend className="p-1 bg-slate-400 rounded-sm">
                   Instructions
                 </legend>
-                <p className="text-black">{instructions(chunks)}</p>
+                <p>{instructions(chunks)}</p>
               </fieldset>
               <button
                 className="bg-green-400 hover:bg-green-700 text-black font-bold py-2 px-4 rounded shadow-md mt-3 m-auto"
@@ -136,7 +139,7 @@ const TextSplitter = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

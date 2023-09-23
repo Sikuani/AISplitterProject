@@ -39,7 +39,7 @@ function YTranscripts() {
 
       <div className="inputYTTranscript my-4 p-6 flex flex-col">
         <fieldset className="mb-4">
-          <legend className="text-sm text-black flex justify-between w-full">
+          <legend className="text-sm  flex justify-between w-full">
             YouTube URL
             <span className="text-right">
               Character Count: {transcriptText.length}
